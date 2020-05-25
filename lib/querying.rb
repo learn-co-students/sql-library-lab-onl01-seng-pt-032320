@@ -7,21 +7,24 @@ end
 
 def select_name_and_motto_of_char_with_longest_motto
   "SELECT name, motto FROM characters
-  WHERE LENGTH(motto) = (SELECT LENGTH(motto) as m FROM characters WHERE MAX(m));"
+  WHERE motto = (SELECT motto FROM characters ORDER BY LENGTH(motto) DESC);"
 end
 
 
 def select_value_and_count_of_most_prolific_species
   "SELECT species, COUNT(species) FROM characters
-  WHERE species = MAX(species);"
+  GROUP BY species
+  ORDER BY COUNT(species) DESC LIMIT 1;"
 end
 
 def select_name_and_series_subgenres_of_authors
-  "Write your SQL query here"
+  "SELECT authors.name, subgenres.name FROM AUTHORS
+  JOIN series ON series.author_id = authors.id
+  JOIN subgenres ON subgenres.id = series.subgenre_id;"
 end
 
 def select_series_title_with_most_human_characters
-  "Write your SQL query here"
+  ""
 end
 
 def select_character_names_and_number_of_books_they_are_in
